@@ -1,4 +1,4 @@
-GOverseer - Go Overseer
+# GOverseer - Go Overseer
 <br/>
 This is a simple HTTPS web server that provides a dynamic webpage that can be used to display any metrics, in a variety of ways.  The objective was to be able to throw simple JSON objects containing metrics like load, disk space, bandwidth, process running, etc. to a lightweight server, and be able to display the results in a flexible format.
 <br/>
@@ -16,11 +16,11 @@ Setup:<br/>
 Clone project into your go/src folder.
 Within the project folder, generate your self signed server keys:
 <br/>
-<code>
-Private key<br/>
+<pre>
+<B>Private key</b>
 openssl genrsa -out server.key 2048
 openssl ecparam -genkey -name secp384r1 -out server.key
 <br/>
-Certificate<br/>
+<b>Certificate</b>
 openssl req -new -x509 -sha256 -key server.key -out server.crt -days 3650
-</code>
+</pre>
