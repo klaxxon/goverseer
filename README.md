@@ -16,11 +16,11 @@ Setup:<br/>
 Clone project into your go/src folder.
 Within the project folder, generate your self signed server keys:
 <br/>
-<code>
-Private key<br/>
+<pre>
+<B>Private key</b>
 openssl genrsa -out server.key 2048
 openssl ecparam -genkey -name secp384r1 -out server.key
 <br/>
-Certificate<br/>
+<b>Certificate</b>
 openssl req -new -x509 -sha256 -key server.key -out server.crt -days 3650
-</code>
+</pre>
