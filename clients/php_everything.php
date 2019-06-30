@@ -1,6 +1,6 @@
 <?php
 define('METRIC_SERVER', '192.168.0.10:44444');
-define('METRIC_HOST', 'Test Server);
+define('METRIC_HOST', 'Test Server');
 
 $pfile = popen("dstat -cdn --nocolor --noupdate 15",'r');
 while ($l = fgets($pfile)) {
