@@ -1,0 +1,21 @@
+body {
+  background-color:#222;
+  color: lightgray;
+  font-family: Arial;
+  font-size: 1.2em;
+}
+
+.container {
+  text-align: center;
+  vertical-align: center;
+  border-top: 3px solid gray;
+  border-left: 3px solid gray;
+  border-right: 3px solid black;
+  border-bottom: 3px solid black;
+  float: left;
+  margin: 10px;
+}
+
+.metric {
+  display: inline-block;
+}

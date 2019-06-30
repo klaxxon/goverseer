@@ -7,3 +7,17 @@ The server listens for webserver requests to provide the base web page, websocke
 
 Monitor page
 Tags within the monitor page......
+
+
+
+Setup
+Clone project into your go/src folder.
+Within the project folder, generate your self signed server keys:
+
+# Private key
+openssl genrsa -out server.key 2048
+openssl ecparam -genkey -name secp384r1 -out server.key
+
+# Certificate
+openssl req -new -x509 -sha256 -key server.key -out server.crt -days 3650
+

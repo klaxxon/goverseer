@@ -11,9 +11,11 @@ import (
 )
 
 type Metric struct {
-	Host   string `json:"host"`
-	Metric string `json:"metric"`
-	Value  string `json:"value"`
+	APIKey   string `json:"apikey,omitempty"`
+	Host     string `json:"host"`
+	Metric   string `json:"metric"`
+	Value    string `json:"value"`
+	Interval int64  `json:"interval"`
 }
 
 type EventBus struct {
@@ -55,6 +57,7 @@ func handleMetrics(res http.ResponseWriter, req *http.Request) {
 		http.Error(res, "Error", http.StatusNotAcceptable)
 		return
 	}
+	jsonData.APIKey = ""
 	json.NewEncoder(res).Encode(jsonData)
 	fmt.Println(jsonData)
 
@@ -69,7 +72,7 @@ func handleMetrics(res http.ResponseWriter, req *http.Request) {
 	}
 	eb.rm.RUnlock()
 
-	http.Error(res, "Accepted", http.StatusAccepted)
+	//	http.Error(res, "Accepted", http.StatusAccepted)
 }
 
 var upgrader = websocket.Upgrader{
@@ -107,6 +110,6 @@ func main() {
 	http.HandleFunc("/metric", handleMetrics)
 	http.HandleFunc("/ws", handleWebSocket)
 	//http.HandleFunc("/api/", makeGzipHandler(serveAPI))
-	log.Fatal(http.ListenAndServeTLS(":"+HTTPSListenPort, "https-server.crt", "https-server.key", nil))
+	log.Fatal(http.ListenAndServeTLS(":"+HTTPSListenPort, "server.crt", "server.key", nil))
 	log.Printf("Server ended")
 }

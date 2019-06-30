@@ -3,12 +3,26 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="js/main.js"></script>
+<link rel="stylesheet" href="css/main.css"/>
 </head>  
   <body>
-    Hello World!
-    <div data-metric="datetime" style="border:1px solid red;"></div>
-    <div data-metric="load" data-widget="gauge" style="border:1px solid green;"></div>
-    <div data-metric="load" data-widget="chart" style="border:1px solid blue;"></div>
+    <h1>GOverseer!</h1>
+    <div class="container">
+      Specific host/metric as text<br/>
+      <div class="metric" metric="1.4/cpu_idle" show="hm"></div>
+    </div>
+    <div class="container">
+      Specific host/metric as gauge<br/>
+      <div class="metric" metric="1.4/cpu_sys" widget="gauge"></div>
+    </div>
+    <div class="container">
+      Specific host/metric as chart<br/>
+      <div class="metric" metric="1.4/cpu_user" widget="chart"></div>
+    </div>
+    <div class="container">
+      Specific metric from any host as limited text list<br/>
+      <div class="metric" metric="cpu_idle" limit="5" show="hm"></div>
+    </div>
   </body>
 </html>
 <script>
