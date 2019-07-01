@@ -1,7 +1,8 @@
-<?php
-define('METRIC_SERVER', '192.168.0.10:44444');
-define('METRIC_HOST', 'Test Server');
+<?PHP
+define('METRIC_SERVER', '192.168.1.11:44444');
+define('METRIC_HOST', 'HomeMonitor');
 
+$metrics = array();
 $pfile = popen("dstat -cdn --nocolor --noupdate 15",'r');
 while ($l = fgets($pfile)) {
   $l = preg_replace('#\\x1b[[][^A-Za-z]*[A-Za-z]#', '', $l);
@@ -12,16 +13,17 @@ while ($l = fgets($pfile)) {
   foreach($arr as $k=>$v) {
     $arr[$k] = convSI($v);
   }
-  print_r($arr);
-  pushMetric('cpu_user', $arr[0]);
-  pushMetric('cpu_sys', $arr[1]);
-  pushMetric('cpu_idle', $arr[2]);
-  pushMetric('cpu_wait', $arr[3]);
-  pushMetric('cpu_stl', $arr[4]);
-  pushMetric('disk_read', $arr[5]);
-  pushMetric('disk_write', $arr[6]);
-  pushMetric('net_recv', $arr[7]);
-  pushMetric('net_send', $arr[8]);
+  $metrics = array();
+  addMetric('cpu_user', $arr[0]);
+  addMetric('cpu_sys', $arr[1]);
+  addMetric('cpu_idle', $arr[2]);
+  addMetric('cpu_wait', $arr[3]);
+  addMetric('cpu_stl', $arr[4]);
+  addMetric('disk_read', $arr[5]);
+  addMetric('disk_write', $arr[6]);
+  addMetric('net_recv', $arr[7]);
+  addMetric('net_send', $arr[8]);
+  pushMetrics();
 }
 
 function convSI($x) {
@@ -33,14 +35,25 @@ function convSI($x) {
   return $x;
 }
 
-function pushMetric($metric, $val) {
-  $data = ["host"=>METRIC_HOST, "metric"=>$metric, "value"=>"$val", "interval"=>15];
+function addMetric($metric, $val) {
+  global $metrics;
+  $data = ["host"=>METRIC_HOST, "metric"=>$metric, "value"=>"$val","interval"=>15];
+  $metrics[] = $data;
+}
+  
+
+function pushMetrics() {
+  global $metrics;
+
+  $obj = new stdClass();
+  $obj->apikey = '';
+  $obj->metrics = $metrics;
 
   $opts = array(
     'http' => array(
       'method'  => 'POST',
       'header'  => 'Content-type: application/x-www-form-urlencoded',
-      'content' => json_encode($data)
+      'content' => json_encode($obj)
     ),
     'ssl' => [ 
       'verify_peer' => false, 
@@ -50,6 +63,7 @@ function pushMetric($metric, $val) {
   );
   $context  = stream_context_create($opts);
   $result = file_get_contents('https://'.METRIC_SERVER.'/metric', false, $context);
+  print_r($opts);
   echo $result;
 }
 
