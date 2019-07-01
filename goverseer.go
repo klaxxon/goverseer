@@ -11,11 +11,15 @@ import (
 )
 
 type Metric struct {
-	APIKey   string `json:"apikey,omitempty"`
 	Host     string `json:"host"`
 	Metric   string `json:"metric"`
 	Value    string `json:"value"`
 	Interval int64  `json:"interval"`
+}
+
+type Metrics struct {
+	APIKey  string   `json:"apikey,omitempty"`
+	Metrics []Metric `json:"metrics"`
 }
 
 type EventBus struct {
@@ -50,15 +54,17 @@ func (eb *EventBus) SubCount() int {
 }
 
 func handleMetrics(res http.ResponseWriter, req *http.Request) {
-	var jsonData Metric
+	var jsonData Metrics
 	err := json.NewDecoder(req.Body).Decode(&jsonData)
 	if err != nil {
 		log.Printf("Error parsing JSON in APISetTilerData:%v\n", err)
 		http.Error(res, "Error", http.StatusNotAcceptable)
 		return
 	}
-	jsonData.APIKey = ""
-	json.NewEncoder(res).Encode(jsonData)
+	if len(jsonData.Metrics) == 0 {
+		return
+	}
+	json.NewEncoder(res).Encode(jsonData.Metrics)
 	fmt.Println(jsonData)
 
 	b, err := json.Marshal(jsonData)

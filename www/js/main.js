@@ -54,18 +54,21 @@ function send(txt) {
 }
 
 
-function processMessage(json) {
-  var t = json.metric;
+function processMessage(jsonArr) {
+  var t = jsonArr.metrics;
   console.log("t", t);
-  // Host/metric
-  var elems = metric2element[json.host + "/" + json.metric];
-  for(var a in elems) {
-    updateElement(elems[a], json);
-  }
-  // Just metric
-  elems = metric2element[json.metric];
-  for(var a in elems) {
-    updateElement(elems[a], json);
+  for(x in jsonArr.metrics) {
+    var json = jsonArr.metrics[x];
+    // Host/metric
+    var elems = metric2element[json.host + "/" + json.metric];
+    for(var a in elems) {
+      updateElement(elems[a], json);
+    }
+    // Just metric
+    elems = metric2element[json.metric];
+    for(var a in elems) {
+      updateElement(elems[a], json);
+    }
   }
 }
 
