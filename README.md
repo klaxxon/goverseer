@@ -1,3 +1,4 @@
+![alt text](https://github.com/klaxxon/goverseer/raw/master/gopher.png "Logo Title Text 1")
 # GOverseer - Go Overseer
 <br/>
 This is a simple HTTPS web server that provides a dynamic webpage that can be used to display any metrics, in a variety of ways.  The objective was to be able to throw simple JSON objects containing metrics like load, disk space, bandwidth, process running, etc. to a lightweight server, and be able to display the results in a flexible format.
