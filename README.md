@@ -12,7 +12,7 @@ The server listens for webserver requests to provide the base web page, websocke
 Tags within the monitor page can be host/metric specific or metric generic.  A generic metric works only with appending text areas, otherwise, a gauge or single text field will overwrite as each host reports it's metric.  These are handled below with templates.
 
 ### Very specific
-To show the cpu_idle metric from the "Devleopment" host as a text field, gauge and chart:
+To show the cpu_idle metric from the "Development" host as a text field, gauge and chart:
 ```
 <div class="container">
       Specific host/metric as text<br/>
