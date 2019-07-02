@@ -1,6 +1,6 @@
 <?PHP
 define('METRIC_SERVER', '192.168.1.11:44444');
-define('METRIC_HOST', 'HomeMonitor');
+define('METRIC_HOST', 'GettysDevMonitor');
 
 $metrics = array();
 $pfile = popen("dstat -cdn --nocolor --noupdate 15",'r');

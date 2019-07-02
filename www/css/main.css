@@ -12,8 +12,13 @@ body {
   border-left: 3px solid gray;
   border-right: 3px solid black;
   border-bottom: 3px solid black;
-  float: left;
   margin: 10px;
+  float: left;
+  align-items: center;
+}
+
+.template {
+  visibility: hidden;
 }
 
 .metric {

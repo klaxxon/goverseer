@@ -6,22 +6,40 @@
 <link rel="stylesheet" href="css/main.css"/>
 </head>  
   <body>
-    <h1>GOverseer!</h1>
+    <img src="gopher.png" style="height:64px;"/><h1 style="height:64px; display:inline-block;">GOverseer!</h1><br/>
     <div class="container">
       Specific host/metric as text<br/>
-      <div class="metric" metric="1.4/cpu_idle" show="hm"></div>
+      <div class="metric" metric="1.4.cpu_idle">
+        <div widget="text" show="hm"></div>
+        <div class="name"></div>
+      </div>
     </div>
     <div class="container">
       Specific host/metric as gauge<br/>
-      <div class="metric" metric="1.4/cpu_sys" widget="gauge"></div>
+      <div class="metric" metric="GettysDevMonitor.cpu_user">
+        <div widget="gauge"></div>
+        <div class="name"></div>
+      </div>
     </div>
     <div class="container">
       Specific host/metric as chart<br/>
-      <div class="metric" metric="1.4/cpu_user" widget="chart"></div>
+      <div class="metric" metric="GettysDevMonitor.cpu_user">
+        <div widget="chart" limit="240"></div>
+        <div class="name"></div>
+      </div>
     </div>
     <div class="container">
       Specific metric from any host as limited text list<br/>
-      <div class="metric" metric="cpu_idle" limit="5" show="hm"></div>
+      <div class="metric" metric="cpu_idle">
+        <div widget="text" limit="5" show="hm"></div>
+      </div>
+    </div>
+    <div class="container">
+      Specific metric from any host as gauges<br/>
+      <div class="metric template" metric="cpu_user" id="cpu_user_gauges">
+        <div widget="gauge"></div>
+        <span class="name">TEST</span>
+      </div>
     </div>
   </body>
 </html>
