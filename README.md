@@ -7,6 +7,28 @@ This is a simple HTTPS web server that provides a dynamic webpage that can be us
 ## Functional:
 The server listens for webserver requests to provide the base web page, websocket connections from the javascript routine on the webpage, to provide real-time updates, and http metric pushes from clients.
 
+## Sending Data
+Just send json to /metric URL of the server.
+```
+{
+      "apikey":"",
+      "metrics":[
+            {"host":"DevMonitor",
+             "metric":"cpu_user",
+             "value":"9",
+             "interval":15},
+            {"host":"DevMonitor",
+             "metric":"cpu_sys",
+             "value":"3",
+             "interval":15
+            }
+      ]
+}
+```
+The apikey is just an optional string to prevent others from posting to your server, if configured.<br/>
+The metrics is an array of one or more metric objects.<br/>
+At a minimum, the metric object must have a host, metric and value.<br/>
+The optional interval is used by the server to timeout the values, if desired.<br/>
 
 ## Monitor page:
 Tags within the monitor page can be host/metric specific or metric generic.  A generic metric works only with appending text areas, otherwise, a gauge or single text field will overwrite as each host reports it's metric.  These are handled below with templates.
